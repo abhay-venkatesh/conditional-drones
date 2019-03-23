@@ -10,5 +10,7 @@ cgan/
     utils.py
     ...
   main.py
-datagen/
+data/
+  unreal/
+  icg/
 ```

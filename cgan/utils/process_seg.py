@@ -6,7 +6,10 @@ import os
 import glob
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--input_dir", required=True, help="path to folder containing segmented images")
+parser.add_argument(
+    "--input_dir",
+    required=True,
+    help="path to folder containing segmented images")
 parser.add_argument("--output_dir", required=True, help="output path")
 
 args = parser.parse_args()
@@ -29,3 +32,4 @@ for filename in glob.glob(args.input_dir+'/*'):
 		print "Number of images processed : ", count
 	PILrgba=Image.fromarray(npimage)
 	PILrgba.save(dst_path)
+

@@ -1,0 +1,12 @@
+name: cd-baselines
+channels:
+- conda-forge
+- defaults
+dependencies:
+- python=3.6
+- pyyaml
+- numpy
+- torchvision
+- scipy
+- scikit-image
+- tqdm

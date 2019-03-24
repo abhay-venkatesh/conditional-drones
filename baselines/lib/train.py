@@ -14,12 +14,9 @@ class Trainer:
         self.experiment_name = config["name"]
 
         # Data parameters
-        try:
-            self.batch_size = config["batch size"]
-        except KeyError:
-            self.batch_size = None
+        self.batch_size = config["batch size"]
 
-        loaders = get_coco_stuff_loaders(config["dataset"], self.batch_size)
+        loaders = get_icg_loaders(config["dataset"], self.batch_size)
         self.train_loader, self.val_loader, self.n_classes = loaders
 
         # Model parameters

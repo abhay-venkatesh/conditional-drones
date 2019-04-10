@@ -6,4 +6,21 @@ Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1
 2. Translate this data into real world data using Conditional Adversarial Networks (e.g. [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf))
 3. Train a deep neural network on this generated data
 
-Is there a limit to how much data we can generate? What are the challenges? How can we solve them?
+Is there a limit to how much data we can generate? What are the challenges? How can we solve them? 
+
+## Programmable Generative Model for Synthetic Data: Unreal Engine
+The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple interface:
+```Python
+def collect(self):
+  client.connect()
+  if not client.isconnected():
+    raise RuntimeError("Could not connect to client. ")
+
+  # First we prepare the Unreal Engine environment by preprocessing it
+  PreProcessor(self.environment_folder).preprocess()
+
+  # Then we build our dataset
+  Builder(self.environment_folder).build(4000)
+
+  client.disconnect()
+```

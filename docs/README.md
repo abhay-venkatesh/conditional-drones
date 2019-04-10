@@ -7,6 +7,3 @@ Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1
 3. Train a deep neural network on this generated data
 
 Is there a limit to how much data we can generate? What are the challenges? How can we solve them?
-
-# Files
-[Proposal](https://paper.dropbox.com/doc/CS-766-Project-Proposal-Conditional-Drones--AXRd~B4KO1bK_xd1ovBZ0eNaAg-RKDp4RoFNBOJVhOXPbGxZ)

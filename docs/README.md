@@ -24,8 +24,10 @@ def collect(self):
 
   client.disconnect()
 ```
-
-![Image 49](./img/unreal_samples/images/49.png) ![Mask 49](./img/unreal_samples/masks/49.png)
+<p float="left">
+  <img src="./img/unreal_samples/images/49.png" width="100" />
+  <img src="./img/unreal_samples/masks/49.png" width="100" /> 
+</p>
 
 
 ## Classes

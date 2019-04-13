@@ -25,8 +25,10 @@ def collect(self):
   client.disconnect()
 ```
 <p float="left">
-  <img src="./img/unreal_samples/images/49.png" width="250" />
-  <img src="./img/unreal_samples/masks/49.png" width="250" /> 
+  <img src="./img/unreal_samples/images/49.png" width="200" />
+  <img src="./img/unreal_samples/masks/49.png" width="200" /> 
+  <img src="./img/unreal_samples/images/42.png" width="200" />
+  <img src="./img/unreal_samples/masks/42.png" width="200" /> 
 </p>
 
 

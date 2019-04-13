@@ -27,7 +27,7 @@ def collect(self):
 
 Generated Image            | Generated Ground Truth Mask
 :-------------------------:|:-------------------------:
-![Image 0](./img/unreal_samples/images/0.png) |  ![Mask 0](./img/unreal_samples/masks/0.png)
+![Image 49](./img/unreal_samples/images/49.png) |  ![Mask 49](./img/unreal_samples/masks/49.png)
 ![Image 42](./img/unreal_samples/images/42.png) |  ![Mask 42](./img/unreal_samples/masks/42.png)
 
 ## Classes

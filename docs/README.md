@@ -24,7 +24,10 @@ def collect(self):
 
   client.disconnect()
 ```
-![Example](./img/unreal_samples/images/0.png)
+
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![Image 0](./img/unreal_samples/images/0.png) |  ![Mask 0](./img/unreal_samples/masks/0.png)
 
 ## Classes
 ```json

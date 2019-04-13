@@ -24,15 +24,16 @@ def collect(self):
 
   client.disconnect()
 ```
+### Examples
 <p float="left">
-  <img src="./img/unreal_samples/images/49.png" width="150" />
-  <img src="./img/unreal_samples/masks/49.png" width="150" /> 
-  <img src="./img/unreal_samples/images/42.png" width="150" />
-  <img src="./img/unreal_samples/masks/42.png" width="150" /> 
+  <img src="./img/unreal_samples/images/49.png" width="155" />
+  <img src="./img/unreal_samples/masks/49.png" width="155" /> 
+  <img src="./img/unreal_samples/images/42.png" width="155" />
+  <img src="./img/unreal_samples/masks/42.png" width="155" /> 
 </p>
 
 
-## Classes
+### Classes
 ```json
 {
    "paved-area": "(R=0,G=255,B=255,A=255)",

@@ -25,7 +25,7 @@ def collect(self):
   client.disconnect()
 ```
 
-Solarized dark             |  Solarized Ocean
+Image            |  Mask
 :-------------------------:|:-------------------------:
 ![Image 0](./img/unreal_samples/images/0.png) |  ![Mask 0](./img/unreal_samples/masks/0.png)
 

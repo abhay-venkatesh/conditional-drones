@@ -24,6 +24,7 @@ def collect(self):
 
   client.disconnect()
 ```
+![Example](./img/unreal_samples/images/0.png)
 
 ## Classes
 ```json

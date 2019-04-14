@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 What if we could generate infinite data? Can we train any machine learning model then? In a classic document titled ["The Unreasonable Effectiveness of Data"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf), AI legend Peter Norvig and colleagues suggest that data might be able to solve all problems that involve human beings. While physics can explain the real world; humans remain an enigma that only the promise of infinite data might be able to solve (allegedly).
 
 Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1784.pdf) with [Unreal Engine](https://www.unrealengine.com) there is a way to at least partially answer this question. That is the topic of contention in this project. We explore the limits of roughly the following process:
@@ -24,25 +24,27 @@ def collect(self):
 
   client.disconnect()
 ```
+### Examples
+<p float="left">
+  <img src="./img/unreal_samples/images/49.png" width="155" />
+  <img src="./img/unreal_samples/masks/49.png" width="155" /> 
+  <img src="./img/unreal_samples/images/42.png" width="155" />
+  <img src="./img/unreal_samples/masks/42.png" width="155" /> 
+</p>
 
-Generated Image            | Generated Ground Truth Mask
-:-------------------------:|:-------------------------:
-![Image 49](./img/unreal_samples/images/49.png) |  ![Mask 49](./img/unreal_samples/masks/49.png)
-![Image 42](./img/unreal_samples/images/42.png) |  ![Mask 42](./img/unreal_samples/masks/42.png)
 
-## Classes
+### Classes
 ```json
 {
    "paved-area": "(R=0,G=255,B=255,A=255)",
-   "window": "(R=191,G=255,B=63,A=255)",
    "wall": "(R=191,G=63,B=255,A=255)",
    "roof": "(R=0,G=63,B=31,A=255)",
    "vegetation": "(R=63,G=31,B=127,A=255)",
    "pool": "(R=0,G=255,B=95,A=255)",
-   "door": "(R=127,G=95,B=255,A=255)",
    "tree": "(R=95,G=191,B=95,A=255)",
    "car": "(R=63,G=47,B=127,A=255)",
    "fence": "(R=127,G=255,B=111,A=255)",
-   "rocks": "(R=159,G=255,B=111,A=255)"
+   "rocks": "(R=159,G=255,B=111,A=255)",
+   "grass": "(R=126,G=126,B=128,A=255)",
 }
 ```

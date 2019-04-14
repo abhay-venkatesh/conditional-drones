@@ -1,5 +1,5 @@
 # conditional-drones
-Using Conditional GANS for generating infinite data to train drone vision models.  
+Extending drone vision models using synthetic data and conditional GANs.
 
 ## Repository organization
 ```

@@ -9,9 +9,9 @@ Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1
 Is there a limit to how much data we can generate? What are the challenges? How can we solve them? 
 
 ## Programmable Generative Model for Synthetic Data: Unreal Engine
-The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv). Using this library is very simple: 
+The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv/unrealcv). Using this library is very simple: 
 1. download [Unreal Engine](https://www.unrealengine.com)
-2. install [UnrealCV](https://github.com/unrealcv) and [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data), and 
+2. install [UnrealCV](https://github.com/unrealcv/unrealcv) and [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data), and 
 3. interface with it in the following manner:
 ```Python
 def collect(self):

@@ -1,19 +1,12 @@
 from PIL import Image
+from pathlib import Path
 import argparse
-import glob
 import numpy as np
 import os
-
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--input_dir",
-    required=True,
-    help="path to folder containing segmented images")
-parser.add_argument("--output_dir", required=True, help="output path")
-args = parser.parse_args()
+from tqdm import tqdm
 
 # Classes to turn off
-seg_class = {
+SEG_CLASS = {
     'bicycle': [119, 11, 32],
     'dirt': [130, 76, 0],
     'gravel': [112, 103, 87],
@@ -29,31 +22,62 @@ seg_class = {
 }
 
 # Change grass color
-seg_class['grass'] = [0, 102, 0]
+SEG_CLASS['grass'] = [0, 102, 0]
 
-count = 0
-for filename in glob.glob(args.input_dir + '/*'):
-    img_name, _ = os.path.splitext(os.path.basename(filename))
-    dst_path = os.path.join(args.output_dir, img_name + ".png")
-    image = Image.open(filename)
-    npimage = np.array(image)
-    
-    # Turn off classes
-    npimage[np.where(
-        np.logical_or.reduce(
-            (npimage == seg_class['door'], npimage == seg_class['bicycle'],
-             npimage == seg_class['dirt'], npimage == seg_class['gravel'],
-             npimage == seg_class['water'], npimage == seg_class['fence-pole'],
-             npimage == seg_class['person'], npimage == seg_class['dog'],
-             npimage == seg_class['bald-tree'], npimage == seg_class['window'],
-             npimage == seg_class['air-marker'],
-             npimage == seg_class['conflicting'])).all(axis=2))] = [0, 0, 0]
 
-    # Change grass color
-    npimage[np.where(
-        (npimage == seg_class['grass']).all(axis=2))] = [126, 126, 128]
-    count += 1
-    if count % 10 == 0:
-        print('Number of images processed : {}'.format(count))
-    PILrgba = Image.fromarray(npimage)
-    PILrgba.save(dst_path)
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_dir",
+        required=True,
+        help="path to folder containing segmented images")
+    parser.add_argument("--output_dir", required=True, help="output path")
+    return parser.parse_args()
+
+
+def process(input_dir, output_dir):
+    for filename in tqdm(os.listdir(input_dir)):
+        filepath = Path(input_dir, filename)
+        if os.path.isfile(filepath):
+
+            dest_path = Path(args.output_dir, filename)
+            image = Image.open(filepath)
+            img_array = np.array(image)
+
+            # Turn off classes
+            img_array[np.where(
+                np.logical_or.reduce(
+                    (img_array == SEG_CLASS['door'],
+                     img_array == SEG_CLASS['bicycle'],
+                     img_array == SEG_CLASS['dirt'],
+                     img_array == SEG_CLASS['gravel'],
+                     img_array == SEG_CLASS['water'],
+                     img_array == SEG_CLASS['fence-pole'],
+                     img_array == SEG_CLASS['person'],
+                     img_array == SEG_CLASS['dog'],
+                     img_array == SEG_CLASS['bald-tree'],
+                     img_array == SEG_CLASS['window'],
+                     img_array == SEG_CLASS['air-marker'],
+                     img_array == SEG_CLASS['conflicting'])).all(axis=2))] = [
+                         0, 0, 0
+                     ]
+
+            # Change grass color
+            img_array[np.where(
+                (img_array == SEG_CLASS['grass']).all(axis=2))] = [
+                    126, 126, 128
+                ]
+
+            img_proc = Image.fromarray(img_array)
+            img_proc.save(dest_path)
+
+
+if __name__ == "__main__":
+    args = get_args()
+
+    input_dir = Path(args.input_dir)
+    output_dir = Path(args.output_dir)
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
+    process(input_dir, output_dir)

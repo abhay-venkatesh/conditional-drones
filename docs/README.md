@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 What if we could generate infinite data? Can we train any machine learning model then? In a classic document titled ["The Unreasonable Effectiveness of Data"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf), AI legend Peter Norvig and colleagues suggest that data might be able to solve all problems that involve human beings. While physics can explain the real world; humans remain an enigma that only the promise of infinite data might be able to solve (allegedly).
 
 Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1784.pdf) with [Unreal Engine](https://www.unrealengine.com) there is a way to at least partially answer this question. That is the topic of contention in this project. We explore the limits of roughly the following process:
@@ -9,7 +9,10 @@ Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1
 Is there a limit to how much data we can generate? What are the challenges? How can we solve them? 
 
 ## Programmable Generative Model for Synthetic Data: Unreal Engine
-The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv). Using this library is very simple: 1. download Unreal Engine 2. install the library, and 3. interface with it in the following manner:
+The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv/unrealcv). Using this library is very simple: 
+1. download [Unreal Engine](https://www.unrealengine.com)
+2. install [UnrealCV](https://github.com/unrealcv/unrealcv) and [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data), and 
+3. interface with it in the following manner:
 ```Python
 def collect(self):
   client.connect()
@@ -36,15 +39,16 @@ def collect(self):
 ### Classes
 ```json
 {
-   "paved-area": "(R=0,G=255,B=255,A=255)",
-   "wall": "(R=191,G=63,B=255,A=255)",
-   "roof": "(R=0,G=63,B=31,A=255)",
-   "vegetation": "(R=63,G=31,B=127,A=255)",
-   "pool": "(R=0,G=255,B=95,A=255)",
-   "tree": "(R=95,G=191,B=95,A=255)",
-   "car": "(R=63,G=47,B=127,A=255)",
-   "fence": "(R=127,G=255,B=111,A=255)",
-   "rocks": "(R=159,G=255,B=111,A=255)",
-   "grass": "(R=126,G=126,B=128,A=255)",
+    "paved-area": "(R=128,G=64,B=128,A=255)",
+    "rocks": "(R=48,G=41,B=30,A=255)",
+    "pool": "(R=0,G=50,B=89,A=255)",
+    "water": "(R=28,G=42,B=168,A=255)",
+    "vegetation": "(R=107,G=142,B=35,A=255)",
+    "roof": "(R=70,G=70,B=70,A=255)",
+    "wall": "(R=102,G=102,B=156,A=255)",
+    "fence": "(R=190,G=153,B=153,A=255)",
+    "car": "(R=9,G=143,B=150,A=255)",
+    "tree": "(R=51,G=51,B=0,A=255)",
+    "obstacle": "(R=2,G=135,B=115,A=255)"
 }
 ```

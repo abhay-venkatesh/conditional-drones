@@ -16,7 +16,6 @@ args = parser.parse_args()
 seg_class = {
     'bicycle': [119, 11, 32],
     'dirt': [130, 76, 0],
-    'grass': [0, 102, 0],
     'gravel': [112, 103, 87],
     'water': [28, 42, 168],
     'fence-pole': [153, 153, 153],
@@ -29,12 +28,17 @@ seg_class = {
     'window': [254, 228, 12]
 }
 
+# Change grass color
+seg_class['grass'] = [0, 102, 0]
+
 count = 0
 for filename in glob.glob(args.input_dir + '/*'):
     img_name, _ = os.path.splitext(os.path.basename(filename))
     dst_path = os.path.join(args.output_dir, img_name + ".png")
     image = Image.open(filename)
     npimage = np.array(image)
+    
+    # Turn off classes
     npimage[np.where(
         np.logical_or.reduce(
             (npimage == seg_class['door'], npimage == seg_class['bicycle'],
@@ -44,6 +48,8 @@ for filename in glob.glob(args.input_dir + '/*'):
              npimage == seg_class['bald-tree'], npimage == seg_class['window'],
              npimage == seg_class['air-marker'],
              npimage == seg_class['conflicting'])).all(axis=2))] = [0, 0, 0]
+
+    # Change grass color
     npimage[np.where(
         (npimage == seg_class['grass']).all(axis=2))] = [126, 126, 128]
     count += 1

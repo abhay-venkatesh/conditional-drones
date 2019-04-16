@@ -53,3 +53,5 @@ def collect(self):
     "obstacle": "(R=2,G=135,B=115,A=255)"
 }
 ```
+
+Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). 

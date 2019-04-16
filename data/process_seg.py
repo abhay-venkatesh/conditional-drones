@@ -11,8 +11,8 @@ parser.add_argument(
     help="path to folder containing segmented images")
 parser.add_argument("--output_dir", required=True, help="output path")
 args = parser.parse_args()
-""" Available classes:
-'obstacle': [2, 135, 115], """
+
+# Classes to turn off
 seg_class = {
     'bicycle': [119, 11, 32],
     'dirt': [130, 76, 0],
@@ -25,8 +25,8 @@ seg_class = {
     'bald-tree': [190, 250, 190],
     'air-marker': [112, 150, 146],
     'conflicting': [255, 0, 0],
-    "door": [254, 148, 12],
-    "window": [254, 228, 12]
+    'door': [254, 148, 12],
+    'window': [254, 228, 12]
 }
 
 count = 0
@@ -48,6 +48,6 @@ for filename in glob.glob(args.input_dir + '/*'):
         (npimage == seg_class['grass']).all(axis=2))] = [126, 126, 128]
     count += 1
     if count % 10 == 0:
-        print("Number of images processed : {}".format(count))
+        print('Number of images processed : {}'.format(count))
     PILrgba = Image.fromarray(npimage)
     PILrgba.save(dst_path)

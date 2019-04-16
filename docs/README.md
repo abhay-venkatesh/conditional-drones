@@ -54,4 +54,4 @@ def collect(self):
 }
 ```
 
-Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). 
+Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we work with a total of 12 classes. The ICG dataset comes with 24 classes, 12 of which we "turn off" by setting them to (R=0,G=0,B=0,A=0).

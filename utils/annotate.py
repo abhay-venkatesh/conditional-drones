@@ -12,18 +12,19 @@ from pascal_voc_writer import Writer
 
 # define detectable classes and corresponding colors
 # tuple keys are (R, G, B)
-RGB_classes = {(128, 64, 128): 'paved-area',
-			   (48, 41, 30): 'rocks',
-			   (0, 50, 89): 'pool',
-			   (28, 42, 168): 'water',
-			   (107, 142, 35): 'vegetation',
-			   (70, 70, 70): 'roof',
-			   (102, 102, 156): 'wall',
-			   (190, 153, 153): 'fence',
-			   (9, 143, 150): 'car',
-			   (51, 51, 0): 'tree',
-			   (2, 135, 115): 'obstacle',
-			   (0, 102, 0): 'grass' }
+# RGB_classes = {(128, 64, 128): 'paved-area',
+# 			   (48, 41, 30): 'rocks',
+# 			   (0, 50, 89): 'pool',
+# 			   (28, 42, 168): 'water',
+# 			   (107, 142, 35): 'vegetation',
+# 			   (70, 70, 70): 'roof',
+# 			   (102, 102, 156): 'wall',
+# 			   (190, 153, 153): 'fence',
+# 			   (9, 143, 150): 'car',
+# 			   (51, 51, 0): 'tree',
+# 			   (2, 135, 115): 'obstacle',
+# 			   (0, 102, 0): 'grass' }
+RGB_classes = {(9, 143, 150): 'car'}
 
 box_width = 2
 
@@ -115,12 +116,14 @@ for f in files:
 		# add this bounding box to our annotation
 		# format: name, xmin, ymin, xmax, ymax
 		voc_writer.addObject(class_label, min_col, min_row, max_col, max_row)
-		voc_writer.save('%s/%s.xml' % (out_dir, img_id))
 
 		# draw actual bounding box
 		box_color = mask_img[centroid[0], centroid[1]]
 		bb = ia.BoundingBoxesOnImage([ia.BoundingBox(x1=min_col, x2=max_col, y1=min_row, y2=max_row)], shape=real_img.shape)
 		real_img = bb.draw_on_image(real_img, color=box_color, thickness=box_width)
+
+	# save annotations in VOC xml format
+	voc_writer.save('%s/%s.xml' % (out_dir, img_id))
 
 	# save box annotations of real img to out directory
 	imsave('%s/%s.jpg' % (bbox_dir, img_id), real_img) 

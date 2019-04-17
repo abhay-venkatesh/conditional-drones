@@ -25,15 +25,19 @@ RGB_classes = {(128, 64, 128): 'paved-area',
 			   (2, 135, 115): 'obstacle',
 			   (0, 102, 0): 'grass' }
 
+box_width = 2
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--mask_dir', type=str, default=None, required=True, help='segmentation mask image directory')
 parser.add_argument('--image_dir', type=str, default=None, required=True, help='real image directory')
 parser.add_argument('--out_dir', type=str, default=None, required=True, help='annotation output directory')
+parser.add_argument('--bbox_dir', type=str, default=None, required=True, help='bounding box annoted image output directory')
 args = parser.parse_args()
 
 mask_dir = args.mask_dir
 image_dir = args.image_dir
 out_dir = args.out_dir
+bbox_dir = args.bbox_dir
 
 if mask_dir == out_dir or image_dir == out_dir:
 	print('input and output dirs cannot be the same')
@@ -116,7 +120,7 @@ for f in files:
 		# draw actual bounding box
 		box_color = mask_img[centroid[0], centroid[1]]
 		bb = ia.BoundingBoxesOnImage([ia.BoundingBox(x1=min_col, x2=max_col, y1=min_row, y2=max_row)], shape=real_img.shape)
-		real_img = bb.draw_on_image(real_img, color=box_color, thickness=10)
+		real_img = bb.draw_on_image(real_img, color=box_color, thickness=box_width)
 
 	# save box annotations of real img to out directory
-	imsave('%s/%s.jpg' % (out_dir, img_id), real_img) 
+	imsave('%s/%s.jpg' % (bbox_dir, img_id), real_img) 

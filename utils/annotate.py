@@ -49,19 +49,20 @@ if not files:
 
 for f in files:
 	print('annotating %s...' % f)
-	mask_img_path = '%s/%s' % (mask_dir, f)
 	img_id = f[:-4] # strip '.png'
+	mask_img_path = '%s/%s' % (mask_dir, f)
+	real_img_path = '%s/%s.jpg' % (image_dir, img_id)
 
 	# read in mask and real images
 	mask_img = imread(mask_img_path, img_num=0)
-	real_img = imread('%s/%s.jpg' % (image_dir, img_id), img_num=0)
+	real_img = imread(real_img_path, img_num=0)
 
 	img_w = mask_img.shape[1] # number of columns is 'width'
 	img_h = mask_img.shape[0] # number of rows is 'height'
 	img_size = img_w * img_h
 
 	# Pascal VOC Annotations
-	voc_writer = Writer(mask_img_path, img_w, img_h)
+	voc_writer = Writer(real_img_path, img_w, img_h)
 
 	label_img = label(mask_img)
 
@@ -109,8 +110,8 @@ for f in files:
 
 		# add this bounding box to our annotation
 		# format: name, xmin, ymin, xmax, ymax
-		#voc_writer.addObject(class_label, min_col, min_row, max_col, max_row)
-		#voc_writer.save('%s/%s.xml' % (out_dir, img_id))
+		voc_writer.addObject(class_label, min_col, min_row, max_col, max_row)
+		voc_writer.save('%s/%s.xml' % (out_dir, img_id))
 
 		# draw actual bounding box
 		box_color = mask_img[centroid[0], centroid[1]]

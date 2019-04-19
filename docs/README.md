@@ -16,6 +16,8 @@ Then, we consider a conditional generative adversarial network $$G: Y\times Z \r
 
 Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal}}(Y)$$ into a real-world looking image. 
 
+To evaluate our setup, we train a classifier on the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387), and compare it to the performance on the translated images, as well as investigate whether a model trained on real-world data can be "extended" using synthetic data.
+
 ## Programmable Generative Model for Synthetic Data: Unreal Engine
 The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv/unrealcv). Using this library is very simple: 
 1. download [Unreal Engine](https://www.unrealengine.com)

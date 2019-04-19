@@ -19,7 +19,9 @@ Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal
 
 TODO: Add diagram describing our approach.
 
-Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? 
+### Generative Model Diversity
+
+Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? Our point of departure is [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf). However, we also explore other approaches such as BicycleGAN, [SPADE](https://nvlabs.github.io/SPADE/), and an ensemble of these.
 
 ### Classifier Extension
 To evaluate our setup, we train a classifier on the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387), and compare it to the performance on the translated images, as well as investigate whether a model trained on real-world data can be "extended" using synthetic data.

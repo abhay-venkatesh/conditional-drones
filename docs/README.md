@@ -12,10 +12,12 @@ Is there a limit to how much data we can generate? What are the challenges? How 
 
 We begin by [defining a generative model for synthetic data using the Unreal Engine](#programmable-generative-model-for-synthetic-data-unreal-engine). Let us call the Unreal Engine generative model distributions for images $$\mathbb{P}_{\text{Unreal}}(X)$$, and for their masks, $$\mathbb{P}_{\text{Unreal}}(Y)$$. 
 
+### Image-to-Image Translation
 Then, we consider a conditional generative adversarial network $$G: Y\times Z \rightarrow X$$, where $$Z\sim \mathcal{N}(\mu,\sigma)$$ is some random noise vector. This cGAN essentially takes a mask and noise vector, and translates back into a fully formed image. Our idea is to train $$G$$ using $$(Y,X)$$ pairs received from the [ICG dataset](https://www.tugraz.at/index.php?id=22387), which is a real world drone dataset. Here, each $$Y$$ is a mask, and $$X$$ is an image. The cGAN will learn to map masks into real images. 
 
 Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal}}(Y)$$ into a real-world looking image. 
 
+### Classifier Extension
 To evaluate our setup, we train a classifier on the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387), and compare it to the performance on the translated images, as well as investigate whether a model trained on real-world data can be "extended" using synthetic data.
 
 ## Programmable Generative Model for Synthetic Data: Unreal Engine

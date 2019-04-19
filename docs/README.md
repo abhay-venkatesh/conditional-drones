@@ -55,6 +55,13 @@ def collect(self):
   <img src="./img/unreal_samples/masks/42.png" width="155" /> 
 </p>
 
+<p float="left">
+  <img src="./img/unreal_samples/images/36.png" width="155" />
+  <img src="./img/unreal_samples/masks/36.png" width="155" /> 
+  <img src="./img/unreal_samples/images/261.png" width="155" />
+  <img src="./img/unreal_samples/masks/261.png" width="155" /> 
+</p>
+
 ## Data Engineering
 We select the following classes and colors:
 ```json

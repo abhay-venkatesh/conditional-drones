@@ -66,3 +66,9 @@ We select the following classes and colors:
 ```
 
 Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we work with a total of 12 classes. The [ICG dataset](https://www.tugraz.at/index.php?id=22387) comes with 24 classes, 12 of which we "turn off" by [setting](https://github.com/abhay-venkatesh/conditional-drones/tree/master/icg_dataset) them to (R=0,G=0,B=0,A=0).
+
+## Evaluation
+
+## Discussion
+
+## Acknowledgements

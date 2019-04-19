@@ -8,11 +8,30 @@ Using [Conditional Generative Adversarial Networks](https://arxiv.org/pdf/1411.1
 
 Is there a limit to how much data we can generate? What are the challenges? How can we solve them? 
 
+## Approach
+
+We begin by [defining a generative model for synthetic data using the Unreal Engine](#programmable-generative-model-for-synthetic-data-unreal-engine). Let us call the Unreal Engine generative model distributions for images $$\mathbb{P}_{\text{Unreal}}(X)$$, and for their masks, $$\mathbb{P}_{\text{Unreal}}(Y)$$. 
+
+### Image-to-Image Translation
+Then, we consider a conditional generative adversarial network $$G: Y\times Z \rightarrow X$$, where $$Z\sim \mathcal{N}(\mu,\sigma)$$ is some random noise vector. This cGAN essentially takes a mask and noise vector, and translates back into a fully formed image. Our idea is to train $$G$$ using $$(Y,X)$$ pairs received from the [ICG dataset](https://www.tugraz.at/index.php?id=22387), which is a real world drone dataset. Here, each $$Y$$ is a mask, and $$X$$ is an image. The cGAN will learn to map masks into real images. 
+
+Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal}}(Y)$$ into a real-world looking image. 
+
+TODO: Add diagram describing our approach.
+
+### Generative Model Diversity
+
+Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? Our point of departure is [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf). However, we also explore other approaches such as BicycleGAN, [SPADE](https://nvlabs.github.io/SPADE/), and an ensemble of these.
+
+### Classifier Extension
+To evaluate our setup, we train a classifier on the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387), and compare it to the performance on the translated images, as well as investigate whether a model trained on real-world data can be "extended" using synthetic data.
+
 ## Programmable Generative Model for Synthetic Data: Unreal Engine
 The Unreal Engine provides us with a programmable environment. For programming this environment, we develop a very simple library called [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data) that is built on [UnrealCV](https://github.com/unrealcv/unrealcv). Using this library is very simple: 
 1. download [Unreal Engine](https://www.unrealengine.com)
 2. install [UnrealCV](https://github.com/unrealcv/unrealcv) and [unreal-cv-data](https://github.com/abhay-venkatesh/unreal-cv-data), and 
 3. interface with it in the following manner:
+
 ```Python
 def collect(self):
   client.connect()
@@ -36,8 +55,8 @@ def collect(self):
   <img src="./img/unreal_samples/masks/42.png" width="155" /> 
 </p>
 
-
-### Classes
+## Data Engineering
+We select the following classes and colors:
 ```json
 {
     "paved-area": "(R=128,G=64,B=128,A=255)",
@@ -54,4 +73,10 @@ def collect(self):
 }
 ```
 
-Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we work with a total of 12 classes. The ICG dataset comes with 24 classes, 12 of which we "turn off" by setting them to (R=0,G=0,B=0,A=0).
+Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we work with a total of 12 classes. The [ICG dataset](https://www.tugraz.at/index.php?id=22387) comes with 24 classes, 12 of which we "turn off" by [setting](https://github.com/abhay-venkatesh/conditional-drones/tree/master/icg_dataset) them to (R=0,G=0,B=0,A=0).
+
+## Evaluation
+
+## Discussion
+
+## Acknowledgements

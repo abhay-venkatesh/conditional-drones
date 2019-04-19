@@ -48,7 +48,6 @@ def collect(self):
 </p>
 
 ## Data Engineering
-### Classes
 We select the following classes and colors:
 ```json
 {

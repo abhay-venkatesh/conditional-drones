@@ -86,9 +86,12 @@ Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we 
 
 ### Image-To-Image Translation between Unreal and ICG
 <p float="left">
-  <img src="./img/translations/icg/053-inputs.png" width="155" />
-  <img src="./img/translations/icg/053-outputs.png" width="155" />
-  <img src="./img/translations/icg/053-targets.png" width="155" />
+  <img src="./img/translations/icg/053-inputs.png" width="75" />
+  <img src="./img/translations/icg/053-outputs.png" width="75" />
+  <img src="./img/translations/icg/053-targets.png" width="75" />
+  <img src="./img/translations/icg/106-inputs.png" width="75" />
+  <img src="./img/translations/icg/106-outputs.png" width="75" />
+  <img src="./img/translations/icg/106-targets.png" width="75" />
 </p>
 
 ## Discussion

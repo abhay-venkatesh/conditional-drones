@@ -21,7 +21,7 @@ TODO: Add diagram describing our approach.
 
 ### Generative Model Diversity
 
-Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? Our point of departure is [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf). However, we also explore other approaches such as BicycleGAN, [SPADE](https://nvlabs.github.io/SPADE/), and an ensemble of these.
+Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? Our point of departure is [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf). However, we also explore other approaches such as [BicycleGAN](https://junyanz.github.io/BicycleGAN/), [SPADE](https://nvlabs.github.io/SPADE/), and an ensemble of these.
 
 ### Classifier Extension
 To evaluate our setup, we train a classifier on the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387), and compare it to the performance on the translated images, as well as investigate whether a model trained on real-world data can be "extended" using synthetic data.
@@ -53,6 +53,13 @@ def collect(self):
   <img src="./img/unreal_samples/masks/49.png" width="155" /> 
   <img src="./img/unreal_samples/images/42.png" width="155" />
   <img src="./img/unreal_samples/masks/42.png" width="155" /> 
+</p>
+
+<p float="left">
+  <img src="./img/unreal_samples/images/36.png" width="155" />
+  <img src="./img/unreal_samples/masks/36.png" width="155" /> 
+  <img src="./img/unreal_samples/images/261.png" width="155" />
+  <img src="./img/unreal_samples/masks/261.png" width="155" /> 
 </p>
 
 ## Data Engineering

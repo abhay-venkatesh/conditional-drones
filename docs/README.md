@@ -123,6 +123,8 @@ Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we 
   <img src="./img/translations/unreal/34-targets.png" width="103" />
 </p>
 
+We note that we get plausible but not yet perfect results. One of the challenges that remains for us is that we cannot find a perfect 1-1 mapping between classes in the source image, and in the unreal environment. However, this is something that is entirely fixable. The unreal environment can in principle have any class, and it is now known to have [photorealstic imagery](https://www.youtube.com/watch?v=E3LtFrMAvQ4). Our intuition is that some work on the data engineering side would greatly improve our results.
+
 ## Discussion
 
 ## Acknowledgements

@@ -85,13 +85,23 @@ Additionally, we have the class "grass" set to (R=0,G=102,B=0,A=255). Hence, we 
 ## Evaluation
 
 ### Image-To-Image Translation between Unreal and ICG
+
+#### ICG Baseline
 <p float="left">
-  <img src="./img/translations/icg/053-inputs.png" width="75" />
-  <img src="./img/translations/icg/053-outputs.png" width="75" />
-  <img src="./img/translations/icg/053-targets.png" width="75" />
-  <img src="./img/translations/icg/106-inputs.png" width="75" />
-  <img src="./img/translations/icg/106-outputs.png" width="75" />
-  <img src="./img/translations/icg/106-targets.png" width="75" />
+  <img src="./img/translations/icg/053-inputs.png" width="103" />
+  <img src="./img/translations/icg/053-outputs.png" width="103" />
+  <img src="./img/translations/icg/053-targets.png" width="103" />
+  <img src="./img/translations/icg/106-inputs.png" width="103" />
+  <img src="./img/translations/icg/106-outputs.png" width="103" />
+  <img src="./img/translations/icg/106-targets.png" width="103" />
+</p>
+<p float="left">
+  <img src="./img/translations/icg/113-inputs.png" width="103" />
+  <img src="./img/translations/icg/113-outputs.png" width="103" />
+  <img src="./img/translations/icg/113-targets.png" width="103" />
+  <img src="./img/translations/icg/126-inputs.png" width="103" />
+  <img src="./img/translations/icg/126-outputs.png" width="103" />
+  <img src="./img/translations/icg/126-targets.png" width="103" />
 </p>
 
 ## Discussion

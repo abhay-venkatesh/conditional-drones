@@ -3,13 +3,13 @@ from lib.segnet import get_model
 from pathlib import Path
 from statistics import mean
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 import csv
 import torch
 import torch.functional as F
 
-BATCH_SIZE = 5
+BATCH_SIZE = 2
 LR = 0.001
-N_CLASSES = 13
 NUM_EPOCHS = 80
 
 
@@ -48,22 +48,23 @@ def get_iou(outputs, labels):
 
 
 def train():
-    trainset = ICG(Path("D:/code/data/icg/training_set/train"))
+    trainset = ICG(Path("D:/code/data/icg/train"))
     train_loader = DataLoader(
         dataset=trainset, batch_size=BATCH_SIZE, shuffle=True)
 
-    valset = ICG(Path("D:/code/data/icg/training_set/test"))
+    valset = ICG(Path("D:/code/data/icg/test"))
     val_loader = DataLoader(dataset=valset, batch_size=BATCH_SIZE)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = get_model(n_classes=N_CLASSES).to(device)
+    model = get_model(n_classes=trainset.N_CLASSES).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
 
-    for epoch in range(NUM_EPOCHS):
+    for epoch in tqdm(range(NUM_EPOCHS)):
 
         model.train()
         total_loss = 0
-        for X, Y in train_loader:
+        for X, Y in tqdm(train_loader):
+            X, Y = X.to(device), Y.to(device)
             Y_ = model(X)
             loss = cross_entropy2d(Y_, Y)
             loss.backward()

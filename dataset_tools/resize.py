@@ -1,10 +1,10 @@
-import sys
-
-from os import walk
 from PIL import Image
+from os import walk
+import sys
+from pathlib import Path
 
-img_dir = sys.argv[1]
-out_dir = sys.argv[2]
+img_dir = Path(sys.argv[1])
+out_dir = Path(sys.argv[2])
 
 files = []
 for (dirpath, dirnames, filenames) in walk(img_dir):

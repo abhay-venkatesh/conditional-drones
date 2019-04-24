@@ -5,24 +5,33 @@ import numpy as np
 import os
 from tqdm import tqdm
 
-# Classes to turn off
-SEG_CLASS = {
-    'bicycle': [119, 11, 32],
-    'dirt': [130, 76, 0],
-    'gravel': [112, 103, 87],
-    'water': [28, 42, 168],
-    'fence-pole': [153, 153, 153],
-    'person': [255, 22, 96],
-    'dog': [102, 51, 0],
-    'bald-tree': [190, 250, 190],
-    'air-marker': [112, 150, 146],
-    'conflicting': [255, 0, 0],
-    'door': [254, 148, 12],
-    'window': [254, 228, 12]
-}
+
+def get_classes_to_turn_off(mode="translation"):
+    classes_to_turn_off = {
+        'bicycle': [119, 11, 32],
+        'dirt': [130, 76, 0],
+        'gravel': [112, 103, 87],
+        'water': [28, 42, 168],
+        'fence-pole': [153, 153, 153],
+        'person': [255, 22, 96],
+        'dog': [102, 51, 0],
+        'bald-tree': [190, 250, 190],
+        'air-marker': [112, 150, 146],
+        'conflicting': [255, 0, 0],
+        'door': [254, 148, 12],
+        'window': [254, 228, 12]
+    }
+    if mode == "translation":
+        return classes_to_turn_off
+    elif mode == "stuff_segmentation":
+        classes_to_turn_off["fence"] = [190, 153, 153]
+        classes_to_turn_off["tree"] = [51, 51, 0]
+        classes_to_turn_off["obstacle"] = [2, 135, 115]
+        return classes_to_turn_off
+
 
 # Change grass color
-SEG_CLASS['grass'] = [0, 102, 0]
+GRASS_COLOR = [0, 102, 0]
 
 
 def get_args():
@@ -32,10 +41,14 @@ def get_args():
         required=True,
         help="path to folder containing segmented images")
     parser.add_argument("--output_dir", required=True, help="output path")
+    parser.add_argument(
+        "--mode",
+        required=True,
+        help="choose from [stuff_segmentation translation]")
     return parser.parse_args()
 
 
-def process(input_dir, output_dir):
+def process(input_dir, output_dir, seg_class):
     for filename in tqdm(os.listdir(input_dir)):
         filepath = Path(input_dir, filename)
         if os.path.isfile(filepath):
@@ -47,26 +60,24 @@ def process(input_dir, output_dir):
             # Turn off classes
             img_array[np.where(
                 np.logical_or.reduce(
-                    (img_array == SEG_CLASS['door'],
-                     img_array == SEG_CLASS['bicycle'],
-                     img_array == SEG_CLASS['dirt'],
-                     img_array == SEG_CLASS['gravel'],
-                     img_array == SEG_CLASS['water'],
-                     img_array == SEG_CLASS['fence-pole'],
-                     img_array == SEG_CLASS['person'],
-                     img_array == SEG_CLASS['dog'],
-                     img_array == SEG_CLASS['bald-tree'],
-                     img_array == SEG_CLASS['window'],
-                     img_array == SEG_CLASS['air-marker'],
-                     img_array == SEG_CLASS['conflicting'])).all(axis=2))] = [
+                    (img_array == seg_class['door'],
+                     img_array == seg_class['bicycle'],
+                     img_array == seg_class['dirt'],
+                     img_array == seg_class['gravel'],
+                     img_array == seg_class['water'],
+                     img_array == seg_class['fence-pole'],
+                     img_array == seg_class['person'],
+                     img_array == seg_class['dog'],
+                     img_array == seg_class['bald-tree'],
+                     img_array == seg_class['window'],
+                     img_array == seg_class['air-marker'],
+                     img_array == seg_class['conflicting'])).all(axis=2))] = [
                          0, 0, 0
                      ]
 
             # Change grass color
             img_array[np.where(
-                (img_array == SEG_CLASS['grass']).all(axis=2))] = [
-                    126, 126, 128
-                ]
+                (img_array == GRASS_COLOR).all(axis=2))] = [126, 126, 128]
 
             img_proc = Image.fromarray(img_array)
             img_proc.save(dest_path)
@@ -80,4 +91,5 @@ if __name__ == "__main__":
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
-    process(input_dir, output_dir)
+    seg_class = get_classes_to_turn_off(mode=args.mode)
+    process(input_dir, output_dir, seg_class)

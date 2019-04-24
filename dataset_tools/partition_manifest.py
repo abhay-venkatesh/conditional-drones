@@ -13,9 +13,9 @@ with open(MANIFEST_FILE) as f:
 np.random.shuffle(imgs)
 
 # split 80/20 for train/test
-train_split = len(imgs) * 0.8
+train_split = int(np.rint(len(imgs) * 0.8))
 train, test = imgs[:train_split], imgs[train_split:]
 
 # write to files
-np.savetxt(TRAIN_FILE, train, delimiter='\n')
-np.savetxt(TEST_FILE, test, delimiter='\n')
+np.savetxt(TRAIN_FILE, train, fmt='%s', delimiter='\n')
+np.savetxt(TEST_FILE, test, fmt='%s', delimiter='\n')

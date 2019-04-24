@@ -53,7 +53,7 @@ def process(input_dir, output_dir, seg_class):
         filepath = Path(input_dir, filename)
         if os.path.isfile(filepath):
 
-            dest_path = Path(args.output_dir, filename)
+            dest_path = Path(output_dir, filename)
             image = Image.open(filepath)
             img_array = np.array(image)
 

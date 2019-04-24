@@ -17,5 +17,5 @@ if not files:
 for f in files:
     print('resizing %s...' % f)
     with Image.open('%s/%s' % (img_dir, f)) as image:
-        im_resize = image.resize((256, 256))
+        im_resize = image.resize((500, 333))
         im_resize.save('%s/%s' % (out_dir, f))

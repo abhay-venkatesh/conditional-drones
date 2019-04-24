@@ -7,11 +7,18 @@ configs/
   your_experiment_configuration_file.yml
 lib/
   trainers/
+    coco_trainer.py
   datasets/
+    coco.py
+    cifar.py
   utils/
+    logger.py
   models/
+    resnet.py
+    segnet.py
+    fcn.py
 experiments/
-  your_experiment_data_such_as_logs_and_checkpoints/
+  your_experiment_info_such_as_logs_and_checkpoints/
 ```
 
 I provide an example for the [COCO Stuff Dataset](https://github.com/nightrome/cocostuff). One can imitate this example to implement any project. 

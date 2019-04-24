@@ -1,5 +1,5 @@
 # Reference: https://github.com/meetshah1995/pytorch-semseg/blob/master/ptsemseg/models/segnet.py
-from lib.layers.conv2D import conv2DBatchNormRelu
+from lib.models.layers.conv2D import conv2DBatchNormRelu
 import torch.nn as nn
 import torchvision.models as models
 

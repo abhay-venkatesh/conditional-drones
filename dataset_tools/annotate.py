@@ -23,7 +23,9 @@ from pascal_voc_writer import Writer
 # 			   (51, 51, 0): 'tree',
 # 			   (2, 135, 115): 'obstacle',
 # 			   (0, 102, 0): 'grass' }
-RGB_classes = {(9, 143, 150): 'car'}
+RGB_classes = {(70, 70, 70): 'roof',
+             (9, 143, 150): 'car',
+             (51, 51, 0): 'tree' }
 
 box_width = 2
 
@@ -75,7 +77,7 @@ for f in files:
     print('annotating %s...' % f)
     img_id = f[:-4]  # strip '.png'
     mask_img_path = '%s/%s' % (mask_dir, f)
-    real_img_path = '%s/%s.jpg' % (image_dir, img_id)
+    real_img_path = '%s/%s.png' % (image_dir, img_id)
 
     # read in mask and real images
     mask_img = imread(mask_img_path, img_num=0)
@@ -110,9 +112,9 @@ for f in files:
             continue
 
         # ignore small regions and artifcats, < 0.1% of image
-        min_area = 0.001 * img_size
+        min_area = 0.01 * img_size
         if region.area < min_area or bbox_area < min_area:
-            continue
+           continue
 
         # find centroid coords, only need row and col
         centroid = np.rint(region.centroid[0:2]).astype(np.int32)
@@ -148,4 +150,4 @@ for f in files:
     voc_writer.save('%s/%s.xml' % (out_dir, img_id))
 
     # save box annotations of real img to out directory
-    imsave('%s/%s.jpg' % (bbox_dir, img_id), real_img)
+    imsave('%s/%s.png' % (bbox_dir, img_id), real_img)

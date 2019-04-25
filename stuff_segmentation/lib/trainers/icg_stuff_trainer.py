@@ -71,4 +71,4 @@ class ICGStuffTrainer(Trainer):
             checkpoint_filename = str(epoch + 1) + ".ckpt"
             checkpoint_path = Path(self.experiment.checkpoints_folder,
                                    checkpoint_filename)
-            torch.save(self.model.state_dict(), checkpoint_path)
+            torch.save(model.state_dict(), checkpoint_path)

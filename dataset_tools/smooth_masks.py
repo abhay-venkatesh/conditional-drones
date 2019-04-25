@@ -41,7 +41,7 @@ args = parser.parse_args()
 mask_dir = args.mask_dir
 out_dir = args.out_dir
 
-TOL = 5 # tolerance for matching mask
+TOL = 10 # tolerance for matching mask
 
 files = []
 for (dirpath, dirnames, filenames) in walk(mask_dir):

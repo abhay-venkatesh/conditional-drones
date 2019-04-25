@@ -2,6 +2,7 @@ from lib.datasets.icg_stuff import ICGStuff, ICGStuffBuilder
 from lib.models.segnet import get_model
 from lib.trainers.functional import cross_entropy2d, get_iou
 from lib.trainers.trainer import Trainer
+from pathlib import Path
 from statistics import mean
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -27,7 +28,15 @@ class ICGStuffTrainer(Trainer):
         optimizer = torch.optim.Adam(
             model.parameters(), lr=self.experiment.config["learning rate"])
 
-        for epoch in tqdm(range(self.experiment.config["epochs"])):
+        start_epochs = 0
+        if self.experiment.config["checkpoint path"]:
+            start_epochs = int(
+                Path(self.experiment.config["checkpoint path"]).stem)
+            model.load_state_dict(
+                torch.load(Path(self.experiment.config["checkpoint path"])))
+
+        for epoch in tqdm(
+                range(start_epochs, self.experiment.config["epochs"])):
 
             model.train()
             total_loss = 0

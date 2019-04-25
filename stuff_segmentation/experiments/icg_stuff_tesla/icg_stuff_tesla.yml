@@ -1,0 +1,5 @@
+trainer: ICGStuffTrainer 
+epochs: 100
+dataset path: /mnt/hdd-4tb/testuser2/datasets/icg/training_set
+learning rate: 0.001
+batch size: 4

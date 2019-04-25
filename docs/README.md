@@ -132,6 +132,7 @@ We observe that our generative model produces accurate "stuff" as in paved area 
 ## Discussion
 
 ## Acknowledgements
+For detailed contribution information, please take a look at: 
 Abhay Venkatesh
 * 
   

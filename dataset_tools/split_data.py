@@ -4,7 +4,9 @@ import shutil
 
 TRAIN_FILE = "unreal_splits/4000/train.split"
 TEST_FILE = "unreal_splits/4000/test.split"
-IMG_DIR = Path("/mnt/c/Users/viswe/Desktop/computer-science/CS 766/unreal_images_4000/images")
+IMG_DIR = Path(
+    "/mnt/c/Users/viswe/Desktop/computer-science/CS 766/unreal_images_4000/images"
+)
 EXTENSION = "-outputs.png"
 
 with open(TRAIN_FILE) as f:

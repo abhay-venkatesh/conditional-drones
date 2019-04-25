@@ -67,3 +67,8 @@ class ICGStuffTrainer(Trainer):
             self.logger.log("epoch", epoch, "mean_iou", mean_iou)
 
             self.logger.graph()
+
+            checkpoint_filename = str(epoch + 1) + ".ckpt"
+            checkpoint_path = Path(self.experiment.checkpoints_folder,
+                                   checkpoint_filename)
+            torch.save(self.model.state_dict(), checkpoint_path)

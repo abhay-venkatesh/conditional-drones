@@ -1,17 +1,51 @@
 from PIL import Image
 from pathlib import Path
-from skimage.transform import resize
 from tqdm import tqdm
-import csv
 import numpy as np
 import os
-import torch
+import shutil
 import torch.utils.data as data
 import torchvision.transforms as transforms
 
 
 class ICGStuff(data.Dataset):
-    N_CLASSES = 2
+    N_CLASSES = 9
+    IMG_HEIGHT = 426
+    IMG_WIDTH = 640
+
+    def __init__(self, root):
+        self.root = root
+        image_folder = Path(self.root, "images")
+        self.img_names = [
+            f for f in os.listdir(image_folder)
+            if os.path.isfile(Path(image_folder, f))
+        ]
+
+    def __getitem__(self, index):
+        """
+        Args:
+            index (int): Index
+        Returns:
+            tuple: Tuple (image, target). target is a list of captions for the
+                   image.
+        """
+        img_name = self.img_names[index]
+        img_path = Path(self.root, "images", img_name)
+        img = Image.open(img_path).convert('RGB')
+        img = transforms.ToTensor()(img)
+
+        seg_name = img_name.replace(".jpg", ".png")
+        seg_path = Path(self.root, "targets", seg_name)
+        seg = Image.open(seg_path)
+        seg = transforms.ToTensor()(seg)
+
+        return img, seg
+
+    def __len__(self):
+        return len(self.img_names)
+
+
+class ICGStuffBuilder:
     IMG_HEIGHT = 426
     IMG_WIDTH = 640
     CLASSES_TO_TURN_OFF = {
@@ -33,63 +67,83 @@ class ICGStuff(data.Dataset):
     }
     GRASS_COLOR = [0, 102, 0]
 
-    def __init__(self, root):
-        raise NotImplementedError
+    def build(self, root):
         self.root = root
-        self._build()
-
-        self.img_names = []
-        self.bbox_indexes = []
-
-        ann_file_path = Path(self.root, "annotations.csv")
-        with open(ann_file_path, newline='') as ann_file:
-            reader = csv.reader(ann_file, delimiter=',')
-            for row in reader:
-                self.img_names.append(row[0])
-                self.bbox_indexes.append(row[1])
-
-    def _build(self):
         self.image_folder = Path(self.root, "images")
         self.target_folder = Path(self.root, "gt", "semantic", "label_images")
         if ((not os.path.exists(self.image_folder))
                 or (not os.path.exists(self.target_folder))):
             raise RuntimeError("Dataset not found.")
 
-        self.trainset_folder = Path(self.root, "train")
-        self.valset_folder = Path(self.root, "val")
-        if ((not os.path.exists(self.trainset_folder))
-                or (not os.path.exists(self.valset_folder))):
-            os.makedirs(self.trainset_folder)
-            os.makedirs(self.valset_folder)
-
-            # Resize the giganormous images
-            resized_image_folder = Path(self.root, "images_resized")
-            for filename in os.listdir(self.image_folder):
-                filepath = Path(self.image_folder, filename)
-                if os.path.isfile(filepath):
-                    Image.open(filepath).resize(
-                        self.IMG_WIDTH, self.IMG_HEIGHT).save(
-                            Path(resized_image_folder, filename))
-
-            # Process the ground truth semantic segmentation
-            processed_target_folder = Path(self.root, "gt_proc")
-            self._process_targets(processed_target_folder)
-
+        trainset_folder = Path(self.root, "train")
+        valset_folder = Path(self.root, "val")
+        if ((not os.path.exists(trainset_folder))
+                or (not os.path.exists(valset_folder))):
+            resized_image_folder = self._resize_images()
+            processed_target_folder = self._process_targets()
+            self._create_split(resized_image_folder, processed_target_folder,
+                               trainset_folder, 0.9)
+            self._create_split(resized_image_folder, processed_target_folder,
+                               valset_folder, 0.1)
         else:
-            train_image_folder = Path(self.trainset_folder, "images")
+            train_image_folder = Path(trainset_folder, "images")
             train_images = [
                 f for f in os.listdir(train_image_folder)
                 if os.path.isfile(Path(train_image_folder, f))
             ]
-            val_image_folder = Path(self.valset_folder, "images")
+
+            val_image_folder = Path(valset_folder, "images")
             val_images = [
                 f for f in os.listdir(val_image_folder)
                 if os.path.isfile(Path(val_image_folder, f))
             ]
+
             if len(train_images) < 360 or len(val_images) < 40:
                 raise ValueError("Dataset corrupted. ")
 
-    def _process_targets(self, processed_target_folder):
+        return trainset_folder, valset_folder
+
+    def _create_split(self, resized_image_folder, processed_target_folder,
+                      folder, size):
+        resized_image_names = [
+            f for f in os.listdir(resized_image_folder)
+            if os.path.isfile(Path(resized_image_folder, f))
+        ]
+        train_image_folder = Path(folder, "images")
+        os.makedirs(train_image_folder)
+        for resized_image_name in resized_image_names[:(
+                len(resized_image_names) * size)]:
+            shutil.move(
+                Path(resized_image_folder, resized_image_name),
+                Path(train_image_folder, resized_image_name))
+
+        processed_target_names = [
+            f for f in os.listdir(processed_target_folder)
+            if os.path.isfile(Path(processed_target_folder, f))
+        ]
+        train_target_folder = Path(folder, "targets")
+        os.makedirs(train_image_folder)
+        for processed_target_name in processed_target_names[:(
+                len(processed_target_names) * size)]:
+            shutil.move(
+                Path(processed_target_folder, processed_target_name),
+                Path(train_target_folder, processed_target_name))
+
+    def _resize_images(self):
+        resized_image_folder = Path(self.root, "images_resized")
+        os.makedirs(resized_image_folder)
+        print("Resizing images...")
+        for filename in tqdm(os.listdir(self.image_folder)):
+            filepath = Path(self.image_folder, filename)
+            if os.path.isfile(filepath):
+                Image.open(filepath).resize(
+                    (self.IMG_WIDTH, self.IMG_HEIGHT)).save(
+                        Path(resized_image_folder, filename))
+        return resized_image_folder
+
+    def _process_targets(self):
+        processed_target_folder = Path(self.root, "gt_proc")
+        print("Processing ground truth masks...")
         for filename in tqdm(os.listdir(self.target_folder)):
             filepath = Path(self.target_folder, filename)
             if os.path.isfile(filepath):
@@ -122,35 +176,6 @@ class ICGStuff(data.Dataset):
                     ]
 
                 img_proc = Image.fromarray(img_array)
-                img_proc.save(dest_path)
-
-    def __getitem__(self, index):
-        """
-        Args:
-            index (int): Index
-        Returns:
-            tuple: Tuple (image, target). target is a list of captions for the
-                   image.
-        """
-        raise NotImplementedError
-        img_name = self.img_names[index]
-        img_path = Path(self.root, "images", img_name)
-        img = Image.open(img_path).convert('RGB')
-        img = img.resize((self.IMG_WIDTH, self.IMG_HEIGHT), Image.ANTIALIAS)
-        img = transforms.ToTensor()(img)
-
-        seg_name = img_name.replace(".jpg", ".png")
-        seg_path = Path(self.root, "annotations", seg_name)
-        seg = Image.open(seg_path)
-        S = np.array(seg)
-        S = resize(
-            S, (self.IMG_HEIGHT, self.IMG_WIDTH),
-            anti_aliasing=False,
-            mode='constant')
-        S = np.where(S > 0, 1, 0)
-        seg = torch.from_numpy(S)
-
-        return img, seg
-
-    def __len__(self):
-        return len(self.img_names)
+                img_proc.resize((self.IMG_WIDTH,
+                                 self.IMG_HEIGHT)).save(dest_path)
+        return processed_target_folder

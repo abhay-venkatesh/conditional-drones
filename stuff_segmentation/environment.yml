@@ -1,4 +1,4 @@
-name: pytorch-template
+name: icg-stuff
 channels:
 - pytorch
 dependencies:

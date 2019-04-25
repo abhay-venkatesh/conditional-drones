@@ -129,8 +129,6 @@ We note that we get plausible but not yet perfect results. One of the challenges
 
 We observe that our generative model produces accurate "stuff" as in paved area or grass. Hence, we study stuff segmentation using synthetic data.
 
-## Discussion
-
 ## Acknowledgements
 For detailed contribution information, please take a look at our [contributions
 page](./pages/contributions.md). For this information in compressed form, you might in interested in our [slides](https://docs.google.com/presentation/d/1wtBzAFIT1-V5iyQnuDGHnrvOxXTEO_yhR6iYjDGrfxI/edit?usp=sharing).

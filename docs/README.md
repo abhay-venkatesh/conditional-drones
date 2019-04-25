@@ -132,10 +132,8 @@ We observe that our generative model produces accurate "stuff" as in paved area 
 ## Discussion
 
 ## Acknowledgements
-
-## Contributions
 Abhay Venkatesh
-* <insert contribs>
+* 
   
 Viswesh Periyasamy
 * Worked on proposal and midterm report
@@ -146,4 +144,4 @@ Viswesh Periyasamy
 * Worked on final presentation
   
 Akshata Bhat
-* <insert contribs>
+* 

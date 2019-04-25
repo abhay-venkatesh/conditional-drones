@@ -143,7 +143,7 @@ class ICGStuffBuilder:
         ]
         train_image_folder = Path(folder, "images")
         os.makedirs(train_image_folder)
-        for resized_image_name in resized_image_names[:size]:
+        for resized_image_name in sorted(resized_image_names[:size]):
             shutil.move(
                 Path(resized_image_folder, resized_image_name),
                 Path(train_image_folder, resized_image_name))
@@ -154,7 +154,7 @@ class ICGStuffBuilder:
         ]
         train_target_folder = Path(folder, "targets")
         os.makedirs(train_target_folder)
-        for processed_target_name in processed_target_names[:size]:
+        for processed_target_name in sorted(processed_target_names[:size]):
             shutil.move(
                 Path(processed_target_folder, processed_target_name),
                 Path(train_target_folder, processed_target_name))

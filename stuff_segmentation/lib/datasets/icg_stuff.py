@@ -137,10 +137,10 @@ class ICGStuffBuilder:
 
     def _create_split(self, resized_image_folder, processed_target_folder,
                       folder, size):
-        resized_image_names = [
+        resized_image_names = sorted([
             f for f in os.listdir(resized_image_folder)
             if os.path.isfile(Path(resized_image_folder, f))
-        ]
+        ])
         train_image_folder = Path(folder, "images")
         os.makedirs(train_image_folder)
         for resized_image_name in resized_image_names[:size]:
@@ -148,10 +148,10 @@ class ICGStuffBuilder:
                 Path(resized_image_folder, resized_image_name),
                 Path(train_image_folder, resized_image_name))
 
-        processed_target_names = [
+        processed_target_names = sorted([
             f for f in os.listdir(processed_target_folder)
             if os.path.isfile(Path(processed_target_folder, f))
-        ]
+        ])
         train_target_folder = Path(folder, "targets")
         os.makedirs(train_target_folder)
         for processed_target_name in processed_target_names[:size]:

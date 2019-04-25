@@ -35,6 +35,7 @@ class UnrealStuffTrainer(Trainer):
                 X, Y = X.to(self.device), Y.long().to(self.device)
                 Y_ = model(X)
                 loss = cross_entropy2d(Y_, Y)
+                total_loss += loss.item()
                 loss.backward()
                 optimizer.step()
                 optimizer.zero_grad()

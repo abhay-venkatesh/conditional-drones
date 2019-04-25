@@ -1,5 +1,5 @@
 trainer: ICGStuffTrainer 
 epochs: 100
-dataset path: D:\code\data\semantic_drone_dataset\training_set
+dataset path: /mnt/hdd-4tb/testuser2/datasets/icg/training_set
 learning rate: 0.001
 batch size: 4

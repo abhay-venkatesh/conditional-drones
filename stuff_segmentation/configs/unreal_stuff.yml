@@ -1,0 +1,5 @@
+trainer: UnrealStuffTrainer 
+epochs: 100
+dataset path: D:\code\data\neighborhood_stuff
+learning rate: 0.001
+batch size: 4

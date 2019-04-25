@@ -133,4 +133,4 @@ We observe that our generative model produces accurate "stuff" as in paved area 
 
 ## Acknowledgements
 For detailed contribution information, please take a look at our [contributions
-page](./pages/contributions.md).
+page](./pages/contributions.md). For this information in compressed form, you might in interested in our [slides](https://docs.google.com/presentation/d/1wtBzAFIT1-V5iyQnuDGHnrvOxXTEO_yhR6iYjDGrfxI/edit?usp=sharing).

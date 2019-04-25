@@ -112,7 +112,7 @@ for f in files:
             continue
 
         # ignore small regions and artifcats, < 0.1% of image
-        min_area = 0.01 * img_size
+        min_area = 0.001 * img_size
         if region.area < min_area or bbox_area < min_area:
            continue
 

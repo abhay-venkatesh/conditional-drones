@@ -4,6 +4,7 @@ from tqdm import tqdm
 import numpy as np
 import os
 import shutil
+import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
 
@@ -12,6 +13,26 @@ class ICGStuff(data.Dataset):
     N_CLASSES = 8
     IMG_HEIGHT = 426
     IMG_WIDTH = 640
+    CLASSES = {
+        (128, 64, 128): "paved-area",
+        (48, 41, 30): "rocks",
+        (0, 50, 89): "pool",
+        (28, 42, 168): "water",
+        (107, 142, 35): "vegetation",
+        (70, 70, 70): "roof",
+        (102, 102, 156): "wall",
+        (0, 102, 0): "grass"
+    }
+    CLASS_INDEXES = {
+        "paved-area": 1,
+        "rocks": 2,
+        "pool": 3,
+        "water": 4,
+        "vegetation": 5,
+        "roof": 6,
+        "wall": 7,
+        "grass": 8
+    }
 
     def __init__(self, root):
         self.root = root
@@ -37,7 +58,15 @@ class ICGStuff(data.Dataset):
         seg_name = img_name.replace(".jpg", ".png")
         seg_path = Path(self.root, "targets", seg_name)
         seg = Image.open(seg_path)
-        seg = transforms.ToTensor()(seg)
+        seg_array = np.array(seg)
+
+        seg = np.zeros((self.IMG_HEIGHT, self.IMG_WIDTH))
+        for i in range(self.IMG_HEIGHT):
+            for j in range(self.IMG_WIDTH):
+                if tuple(seg_array[i, j]) in self.CLASSES.keys():
+                    class_ = self.CLASSES[tuple(seg_array[i, j])]
+                    seg[i, j] = self.CLASS_INDEXES[class_]
+        seg = torch.from_numpy(seg)
 
         return img, seg
 
@@ -124,7 +153,7 @@ class ICGStuffBuilder:
             if os.path.isfile(Path(processed_target_folder, f))
         ]
         train_target_folder = Path(folder, "targets")
-        os.makedirs(train_image_folder)
+        os.makedirs(train_target_folder)
         for processed_target_name in processed_target_names[:size]:
             shutil.move(
                 Path(processed_target_folder, processed_target_name),

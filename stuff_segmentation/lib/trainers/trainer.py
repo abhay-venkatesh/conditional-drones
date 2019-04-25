@@ -1,4 +1,4 @@
-from lib.utils.simple_ml_logger.logger import Logger
+from lib.utils.logger import Logger
 import torch
 
 

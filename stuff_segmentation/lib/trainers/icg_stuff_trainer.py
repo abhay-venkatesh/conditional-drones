@@ -1,8 +1,7 @@
-from lib.datasets.coco_stuff import ICGStuff
+from lib.datasets.icg_stuff import ICGStuff, ICGStuffBuilder
 from lib.models.segnet import get_model
 from lib.trainers.functional import cross_entropy2d, get_iou
 from lib.trainers.trainer import Trainer
-from pathlib import Path
 from statistics import mean
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -11,14 +10,16 @@ import torch
 
 class ICGStuffTrainer(Trainer):
     def train(self):
-        trainset = ICGStuff(
-            Path(self.experiment.config["dataset path"], "train"))
+        trainset_folder, valset_folder = ICGStuffBuilder().build(
+            self.experiment.config["dataset path"])
+
+        trainset = ICGStuff(trainset_folder)
         train_loader = DataLoader(
             dataset=trainset,
             batch_size=self.experiment.config["batch size"],
             shuffle=True)
 
-        valset = ICGStuff(Path(self.experiment.config["dataset path"], "val"))
+        valset = ICGStuff(valset_folder)
         val_loader = DataLoader(
             dataset=valset, batch_size=self.experiment.config["batch size"])
 

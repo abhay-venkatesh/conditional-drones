@@ -48,20 +48,22 @@ class ICGStuffTrainer(Trainer):
             model.eval()
             ious = []
             with torch.no_grad():
-                for images, labels in val_loader:
+                for i, (images, labels) in enumerate(val_loader):
                     images = images.to(self.device)
                     labels = labels[0].long()
                     labels = labels.to(self.device)
-                    outputs = model(images)
-                    _, predicted = torch.max(outputs.data, 1)
+                    output = model(images)
+                    _, predicted = torch.max(output.data, 1)
+
                     iou = get_iou(predicted, labels)
                     ious.append(iou.item())
+
+                    ICGStuff.visualize_prediction(
+                        predicted, i, self.experiment.outputs_folder)
 
             mean_iou = mean(ious)
             self.logger.log("epoch", epoch, "mean_iou", mean_iou)
 
             self.logger.graph()
-            
-            self._save_checkpoint(epoch, model)
 
-            
+            self._save_checkpoint(epoch, model)

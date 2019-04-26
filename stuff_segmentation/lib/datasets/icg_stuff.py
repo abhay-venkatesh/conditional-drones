@@ -21,7 +21,7 @@ class ICGStuff(data.Dataset):
         (107, 142, 35): "vegetation",
         (70, 70, 70): "roof",
         (102, 102, 156): "wall",
-        (0, 102, 0): "grass"
+        (0, 102, 0): "grass",
     }
     CLASS_INDEXES = {
         "paved-area": 1,
@@ -73,10 +73,10 @@ class ICGStuff(data.Dataset):
             seg = Image.fromarray(seg).convert('L')
             seg.save(Path(target_folder, seg_name))
 
-    def visualize_output(self, output):
-        _, predicted = torch.max(output.data, 1)
-        predicted = predicted.cpu().detach().numpy()
+    @classmethod
+    def visualize_prediction(self, predicted, i, folder):
         num_predicted, h, w = predicted.size()
+        predicted = predicted.cpu().detach().numpy()
         for n in range(num_predicted):
             seg = predicted[n]
             mask = np.zeros((self.IMG_HEIGHT, self.IMG_WIDTH, 3))
@@ -84,12 +84,14 @@ class ICGStuff(data.Dataset):
             class_to_color = {v: k for k, v in self.CLASSES.items()}
             for i in range(self.IMG_HEIGHT):
                 for j in range(self.IMG_WIDTH):
-                    class_ = idx_to_class[seg[i, j]]
-                    color = class_to_color[class_]
-                    mask[i, j] = color
+                    if seg[i, j] != 0:
+                        class_ = idx_to_class[seg[i, j]]
+                        color = class_to_color[class_]
+                        mask[i, j] = color
+            mask = Image.fromarray(mask.astype('uint8')).convert("RGB")
             mask.save(
-                Path(self.experiment.output_folder,
-                     "predicted_" + str(n) + ".png"))
+                Path(folder,
+                     "predicted_" + str(n) + "-" + str(i) + ".png"))
 
     def __getitem__(self, index):
         """

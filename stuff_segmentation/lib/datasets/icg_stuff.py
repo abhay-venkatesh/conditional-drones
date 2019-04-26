@@ -74,7 +74,7 @@ class ICGStuff(data.Dataset):
             seg.save(Path(target_folder, seg_name))
 
     @classmethod
-    def visualize_prediction(self, predicted, i, folder):
+    def visualize_prediction(self, predicted, batch_idx, folder):
         num_predicted, h, w = predicted.size()
         predicted = predicted.cpu().detach().numpy()
         for n in range(num_predicted):
@@ -91,7 +91,7 @@ class ICGStuff(data.Dataset):
             mask = Image.fromarray(mask.astype('uint8')).convert("RGB")
             mask.save(
                 Path(folder,
-                     "predicted_" + str(n) + "-" + str(i) + ".png"))
+                     "predicted_" + str(n) + "-" + str(batch_idx) + ".png"))
 
     def __getitem__(self, index):
         """

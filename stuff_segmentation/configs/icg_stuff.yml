@@ -3,3 +3,4 @@ epochs: 100
 dataset path: D:\code\data\semantic_drone_dataset\training_set
 learning rate: 0.001
 batch size: 4
+checkpoint path: D:\code\src\conditional-drones\stuff_segmentation\experiments\icg_stuff\checkpoints\9.ckpt

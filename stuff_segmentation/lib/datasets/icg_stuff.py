@@ -107,7 +107,8 @@ class ICGStuff(data.Dataset):
         seg_name = img_name.replace(".jpg", ".png")
         seg_path = Path(self.root, "targets", seg_name)
         seg = Image.open(seg_path)
-        seg = transforms.ToTensor()(seg)
+        seg_array = np.array(seg)
+        seg = torch.from_numpy(seg_array)
 
         return img, seg
 

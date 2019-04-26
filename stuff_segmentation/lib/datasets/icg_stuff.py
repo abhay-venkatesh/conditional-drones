@@ -4,9 +4,9 @@ from tqdm import tqdm
 import numpy as np
 import os
 import shutil
-import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
+import torch
 
 
 class ICGStuff(data.Dataset):
@@ -41,6 +41,55 @@ class ICGStuff(data.Dataset):
             f for f in os.listdir(image_folder)
             if os.path.isfile(Path(image_folder, f))
         ]
+        self._build_targets()
+
+    def _build_targets(self):
+        target_folder = Path(self.root, "targets")
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
+        else:
+            target_names = [
+                f for f in os.listdir(target_folder)
+                if os.path.isfile(Path(target_folder, f))
+            ]
+            if len(target_names) == len(self.img_names):
+                return
+            else:
+                shutil.rmtree(target_folder)
+                os.makedirs(target_folder)
+
+        print("Building targets...")
+        for img_name in tqdm(self.img_names):
+            seg_name = img_name.replace(".jpg", ".png")
+            seg_path = Path(self.root, "masks", seg_name)
+            seg = Image.open(seg_path)
+            seg_array = np.array(seg)
+            seg = np.zeros((self.IMG_HEIGHT, self.IMG_WIDTH))
+            for i in range(self.IMG_HEIGHT):
+                for j in range(self.IMG_WIDTH):
+                    if tuple(seg_array[i, j]) in self.CLASSES.keys():
+                        class_ = self.CLASSES[tuple(seg_array[i, j])]
+                        seg[i, j] = self.CLASS_INDEXES[class_]
+            seg = Image.fromarray(seg).convert('L')
+            seg.save(Path(target_folder, seg_name))
+
+    def visualize_output(self, output):
+        _, predicted = torch.max(output.data, 1)
+        predicted = predicted.cpu().detach().numpy()
+        num_predicted, h, w = predicted.size()
+        for n in range(num_predicted):
+            seg = predicted[n]
+            mask = np.zeros((self.IMG_HEIGHT, self.IMG_WIDTH, 3))
+            idx_to_class = {v: k for k, v in self.CLASS_INDEXES.items()}
+            class_to_color = {v: k for k, v in self.CLASSES.items()}
+            for i in range(self.IMG_HEIGHT):
+                for j in range(self.IMG_WIDTH):
+                    class_ = idx_to_class[seg[i, j]]
+                    color = class_to_color[class_]
+                    mask[i, j] = color
+            mask.save(
+                Path(self.experiment.output_folder,
+                     "predicted_" + str(n) + ".png"))
 
     def __getitem__(self, index):
         """
@@ -58,15 +107,7 @@ class ICGStuff(data.Dataset):
         seg_name = img_name.replace(".jpg", ".png")
         seg_path = Path(self.root, "targets", seg_name)
         seg = Image.open(seg_path)
-        seg_array = np.array(seg)
-
-        seg = np.zeros((self.IMG_HEIGHT, self.IMG_WIDTH))
-        for i in range(self.IMG_HEIGHT):
-            for j in range(self.IMG_WIDTH):
-                if tuple(seg_array[i, j]) in self.CLASSES.keys():
-                    class_ = self.CLASSES[tuple(seg_array[i, j])]
-                    seg[i, j] = self.CLASS_INDEXES[class_]
-        seg = torch.from_numpy(seg)
+        seg = transforms.ToTensor()(seg)
 
         return img, seg
 
@@ -111,7 +152,7 @@ class ICGStuffBuilder:
         if ((not os.path.exists(trainset_folder))
                 or (not os.path.exists(valset_folder))):
             resized_image_folder = self._resize_images()
-            processed_target_folder = self._process_targets()
+            processed_target_folder = self._process_masks()
             self._create_split(resized_image_folder, processed_target_folder,
                                trainset_folder, self.NUM_TRAIN_IMAGES)
             self._create_split(resized_image_folder, processed_target_folder,
@@ -152,7 +193,7 @@ class ICGStuffBuilder:
             f for f in os.listdir(processed_target_folder)
             if os.path.isfile(Path(processed_target_folder, f))
         ])
-        train_target_folder = Path(folder, "targets")
+        train_target_folder = Path(folder, "masks")
         os.makedirs(train_target_folder)
         for processed_target_name in processed_target_names[:size]:
             shutil.move(
@@ -184,7 +225,7 @@ class ICGStuffBuilder:
 
         return resized_image_folder
 
-    def _process_targets(self):
+    def _process_masks(self):
         processed_target_folder = Path(self.root, "gt_proc")
         if not os.path.exists(processed_target_folder):
             os.makedirs(processed_target_folder)

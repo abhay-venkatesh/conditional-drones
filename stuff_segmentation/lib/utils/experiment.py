@@ -24,7 +24,10 @@ class Experiment:
         self.folder = Path(experiments_folder, self.name)
         self.checkpoints_folder = Path(self.folder, "checkpoints")
         self.stats_folder = Path(self.folder, "stats")
-        for path in [self.checkpoints_folder, self.stats_folder]:
+        self.outputs_folder = Path(self.folder, "outputs")
+        for path in [
+                self.checkpoints_folder, self.stats_folder, self.outputs_folder
+        ]:
             if not os.path.exists(path):
                 os.makedirs(path)
         shutil.copy2(self.config_file, self.folder)

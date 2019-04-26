@@ -43,7 +43,7 @@ class ICGStuffTrainer(Trainer):
                 optimizer.step()
                 optimizer.zero_grad()
             avg_loss = total_loss / len(train_loader)
-            self.logger.log("epoch", epoch, "avg_loss", avg_loss)
+            self.logger.log("epoch", epoch, "loss", avg_loss)
 
             model.eval()
             ious = []
@@ -62,7 +62,7 @@ class ICGStuffTrainer(Trainer):
                         predicted, i, self.experiment.outputs_folder)
 
             mean_iou = mean(ious)
-            self.logger.log("epoch", epoch, "mean_iou", mean_iou)
+            self.logger.log("epoch", epoch, "iou", mean_iou)
 
             self.logger.graph()
 

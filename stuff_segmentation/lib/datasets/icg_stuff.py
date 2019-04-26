@@ -10,7 +10,7 @@ import torchvision.transforms as transforms
 
 
 class ICGStuff(data.Dataset):
-    N_CLASSES = 8
+    N_CLASSES = 9
     IMG_HEIGHT = 426
     IMG_WIDTH = 640
     CLASSES = {

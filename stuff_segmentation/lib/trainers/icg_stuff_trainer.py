@@ -2,7 +2,6 @@ from lib.datasets.icg_stuff import ICGStuff, ICGStuffBuilder
 from lib.models.segnet import get_model
 from lib.trainers.functional import cross_entropy2d, get_iou
 from lib.trainers.trainer import Trainer
-from pathlib import Path
 from statistics import mean
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -25,15 +24,10 @@ class ICGStuffTrainer(Trainer):
             dataset=valset, batch_size=self.experiment.config["batch size"])
 
         model = get_model(n_classes=trainset.N_CLASSES).to(self.device)
+        start_epochs = self._load_checkpoint(model)
+
         optimizer = torch.optim.Adam(
             model.parameters(), lr=self.experiment.config["learning rate"])
-
-        start_epochs = 0
-        if self.experiment.config["checkpoint path"]:
-            start_epochs = int(
-                Path(self.experiment.config["checkpoint path"]).stem)
-            model.load_state_dict(
-                torch.load(Path(self.experiment.config["checkpoint path"])))
 
         for epoch in tqdm(
                 range(start_epochs, self.experiment.config["epochs"])):
@@ -67,8 +61,7 @@ class ICGStuffTrainer(Trainer):
             self.logger.log("epoch", epoch, "mean_iou", mean_iou)
 
             self.logger.graph()
+            
+            self._save_checkpoint(epoch, model)
 
-            checkpoint_filename = str(epoch + 1) + ".ckpt"
-            checkpoint_path = Path(self.experiment.checkpoints_folder,
-                                   checkpoint_filename)
-            torch.save(model.state_dict(), checkpoint_path)
+            

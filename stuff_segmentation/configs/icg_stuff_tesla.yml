@@ -1,5 +1,6 @@
 trainer: ICGStuffTrainer 
-epochs: 100
+epochs: 150
 dataset path: /mnt/hdd-4tb/testuser2/datasets/icg/training_set
 learning rate: 0.001
 batch size: 7
+checkpoint path: /home/testuser2/code/src/conditional-drones/stuff_segmentation/experiments/icg_stuff_tesla/checkpoints/100.ckpt

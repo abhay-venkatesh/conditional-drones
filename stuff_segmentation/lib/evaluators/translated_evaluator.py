@@ -4,6 +4,7 @@ from lib.models.segnet import get_model
 from pathlib import Path
 from torch.utils.data import DataLoader
 import torch
+import torchvision.transforms as transforms
 
 
 class TranslatedEvaluator:
@@ -29,3 +30,10 @@ class TranslatedEvaluator:
                 _, predicted = torch.max(output.data, 1)
                 ICGStuff.visualize_prediction(predicted, i,
                                               self.OUTPUTS_FOLDER)
+
+    def get_images(self):
+        dataset = TranslatedUnreal(self.DATASET_PATH)
+        for i, img in enumerate(dataset):
+            transforms.ToPILImage()(img).save(
+                Path(self.OUTPUTS_FOLDER,
+                     str(i) + ".jpg"))

@@ -21,7 +21,7 @@
 * Utility scripts for data preprocessing
 * Annotation tool to convert segmentation masks to bounding boxes in Pascal VOC format
 * Training YOLO CNN architecture for object detection
-** modifying code to calculate mean IOU and mAP
+  * modifying code to calculate mean IOU and mAP
 * Training Mask RCNN architecture for object detection
 * Final presentation
 * Website preparation

@@ -16,12 +16,15 @@
   
 ## Viswesh Periyasamy
 
-* Worked on proposal and midterm report
-* Wrote utility scripts for data preprocessing
-* Created annotation tool to convert segmentation masks to bounding boxes in Pascal VOC format
-* Trained YOLO CNN architecture for object detection
-* Trained Mask RCNN architecture for object detection
-* Worked on final presentation
+* Project roposal
+* Midterm report
+* Utility scripts for data preprocessing
+* Annotation tool to convert segmentation masks to bounding boxes in Pascal VOC format
+* Training YOLO CNN architecture for object detection
+** modifying code to calculate mean IOU and mAP
+* Training Mask RCNN architecture for object detection
+* Final presentation
+* Website preparation
   
 ## Akshata Bhat
 

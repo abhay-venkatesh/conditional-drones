@@ -77,7 +77,7 @@ Then, we consider a conditional generative adversarial network $$G: Y\times Z \r
 
 Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal}}(Y)$$ into a real-world looking image. 
 
-<img src="./img/figures/cgan.png" />
+<img src="./img/figures/cgan.png" width="620"/>
 
 ### Generative Model Diversity
 
@@ -139,7 +139,7 @@ We explore the [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.0
 
 The following table summarizes performance results of scenarios 1 and 2:
 
-<img src="./img/figures/yolo_results_1-2.PNG" width="600"/>
+<img src="./img/figures/yolo_results_1-2.PNG" width="620"/>
 
 We present a sample of the predicted bounding boxes derived from the models on the real ICG dataset below.
 
@@ -159,7 +159,7 @@ We present a sample of the predicted bounding boxes derived from the models on t
 
 We similarly summarize performance results of scenario 3:
 
-<img src="./img/figures/yolo_results_3.PNG" width="600"/>
+<img src="./img/figures/yolo_results_3.PNG" width="620"/>
 
 with an identical sample of predicted bounding boxes when trained on synthetic data.
 
@@ -182,7 +182,7 @@ Full prediction results can be found [here](./img/object-detection).
 
 We observe that our generative model produces accurate "stuff" as in paved area or grass. Thus, we further evaluate our framework by studying stuff segmentation using synthetic data. Specifically, we use the [SegNet](http://mi.eng.cam.ac.uk/projects/segnet/) segmentation model to qualitatively assess the validity of our generated images. The following is a sample of segmentation masks comparing baseline (ICG) and generated images.
 
-<img src="./img/figures/stuff_segmentation.PNG" width="600"/>
+<img src="./img/figures/stuff_segmentation.PNG" width="620"/>
 
 While the masks derived from generated images clearly exhibit more noise, they are similar in terms of quality to the masks derived from real images.
 

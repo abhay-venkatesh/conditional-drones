@@ -159,7 +159,7 @@ We present a sample of the predicted bounding boxes derived from the models on t
 
 We similarly summarize performance results of scenario 3:
 
-<img src="./img/figures/yolo_results_3.PNG" />
+<img src="./img/figures/yolo_results_3.PNG" width="600"/>
 
 with an identical sample of predicted bounding boxes when trained on synthetic data.
 

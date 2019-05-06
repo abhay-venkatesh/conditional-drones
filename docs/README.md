@@ -90,7 +90,7 @@ Furthermore, we aim to study the effects of generative model diversity on the ex
 
 Here we use the real-world [ICG dataset](https://www.tugraz.at/index.php?id=22387) as a baseline for realistic images. The 1st and 4th columns represent segmentation masks, 2nd and 5th represent translated images, and 3rd and 6th represent the target image (either from ICG or Unreal).
 
-### ICG Baseline
+### ICG Baseline using Conditional GAN
 <p float="left">
   <img src="./img/translations/icg/053-inputs.png" width="103" />
   <img src="./img/translations/icg/053-outputs.png" width="103" />
@@ -108,7 +108,7 @@ Here we use the real-world [ICG dataset](https://www.tugraz.at/index.php?id=2238
   <img src="./img/translations/icg/126-targets.png" width="103" />
 </p>
 
-### Testing on Unreal
+### Testing on Unreal using Conditional GAN
 <p float="left">
   <img src="./img/translations/unreal/9-inputs.png" width="103" />
   <img src="./img/translations/unreal/9-outputs.png" width="103" />
@@ -127,7 +127,7 @@ Here we use the real-world [ICG dataset](https://www.tugraz.at/index.php?id=2238
   <img src="./img/translations/unreal/34-targets.png" width="103" />
 </p>
 
-### ICG Baseline using Bicycle GAN
+### ICG Baseline using Bicycle GAN 
 <p float="left">
   <img src="./img/translations/icg_bgan/053-inputs.png" width="103" />
   <img src="./img/translations/icg_bgan/053-outputs.png" width="103" />

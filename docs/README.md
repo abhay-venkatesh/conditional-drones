@@ -164,7 +164,9 @@ Here we use the real-world [ICG dataset](https://www.tugraz.at/index.php?id=2238
   <img src="./img/translations/unreal_bgan/34-targets.png" width="103" />
 </p>
 
-We note that we get plausible but not yet perfect results. One of the challenges that remains for us is that we cannot find a perfect 1-1 mapping between classes in the source image, and in the unreal environment. However, this is something that is entirely fixable. The unreal environment can in principle have any class, and it is now known to have [photorealistic imagery](https://www.youtube.com/watch?v=E3LtFrMAvQ4). Our intuition is that some work on the data engineering side would greatly improve our results.
+Here, the bicycle model was trained only for 10 epochs due to limitation of computational power. We can achieve better results than CGAN by training for more epochs.
+
+We note that we get plausible but not yet perfect results using both the models. One of the challenges that remains for us is that we cannot find a perfect 1-1 mapping between classes in the source image, and in the unreal environment. However, this is something that is entirely fixable. The unreal environment can in principle have any class, and it is now known to have [photorealistic imagery](https://www.youtube.com/watch?v=E3LtFrMAvQ4). Our intuition is that some work on the data engineering side would greatly improve our results.
 
 ## Object Detection
 To evaluate our setup, we train object-detection classification models under three scenarios:

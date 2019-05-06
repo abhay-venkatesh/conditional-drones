@@ -28,4 +28,16 @@
   
 ## Akshata Bhat
 
-* 
+* Project Proposal and Evaluation Direction
+* Image to Image translation
+  * Initial experimental setup
+  * ICG Data Engineering/Preperation - correcting segmentation masks and combining source/destination images.
+* Mark RCNN - https://github.com/akshatabhat/Mask_RCNN
+  * Initial Experimental Setup 
+  * Wrote Data Loading code to load ICG Dataset(using regionprops to identify object regions in segmentated images)
+* Bicycle GAN
+  * ICG Data Engineering
+  * Modified scripts/code to train on ICG dataset.
+  * Training 
+  
+

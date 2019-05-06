@@ -127,6 +127,43 @@ Here we use the real-world [ICG dataset](https://www.tugraz.at/index.php?id=2238
   <img src="./img/translations/unreal/34-targets.png" width="103" />
 </p>
 
+### ICG Baseline using Bicycle GAN
+<p float="left">
+  <img src="./img/translations/icg_bgan/053-inputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/053-outputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/053-targets.png" width="103" />
+  <img src="./img/translations/icg_bgan/106-inputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/106-outputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/106-targets.png" width="103" />
+</p>
+<p float="left">
+  <img src="./img/translations/icg_bgan/113-inputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/113-outputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/113-targets.png" width="103" />
+  <img src="./img/translations/icg_bgan/126-inputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/126-outputs.png" width="103" />
+  <img src="./img/translations/icg_bgan/126-targets.png" width="103" />
+</p>
+
+### Testing on Unreal using using Bicycle GAN
+<p float="left">
+  <img src="./img/translations/unreal_bgan/9-inputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/9-outputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/9-targets.png" width="103" />
+  <img src="./img/translations/unreal_bgan/12-inputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/12-outputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/12-targets.png" width="103" />
+</p>
+
+<p float="left">
+  <img src="./img/translations/unreal_bgan/19-inputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/19-outputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/19-targets.png" width="103" />
+  <img src="./img/translations/unreal_bgan/34-inputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/34-outputs.png" width="103" />
+  <img src="./img/translations/unreal_bgan/34-targets.png" width="103" />
+</p>
+
 We note that we get plausible but not yet perfect results. One of the challenges that remains for us is that we cannot find a perfect 1-1 mapping between classes in the source image, and in the unreal environment. However, this is something that is entirely fixable. The unreal environment can in principle have any class, and it is now known to have [photorealistic imagery](https://www.youtube.com/watch?v=E3LtFrMAvQ4). Our intuition is that some work on the data engineering side would greatly improve our results.
 
 ## Object Detection

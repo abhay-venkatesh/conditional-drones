@@ -38,6 +38,7 @@
 * Bicycle GAN
   * ICG Data Engineering
   * Modified scripts/code to train on ICG dataset.
-  * Training 
-  
+  * Training on ICG dataset
+  * Testing on ICG and Unreal dataset
+ * Website preparation
 

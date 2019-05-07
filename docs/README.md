@@ -83,11 +83,11 @@ Once we have $$G$$, we can use it to translate a $$Y\sim\mathbb{P}_{\text{Unreal
 
 Furthermore, we aim to study the effects of generative model diversity on the extension of a model. Is there ways to improve a generative model such that a supervised classifier can be better learned? Our point of departure is [Image-To-Image Translation with Conditional Adversarial Networks](https://arxiv.org/pdf/1611.07004.pdf). However, we also explore another approach - [BicycleGAN](https://junyanz.github.io/BicycleGAN/).
 
-Motivation behind exploring BicycleGAN : Many of the image-to-image translations are in one-to-many in nature(i.e. one input image has multiple possible output images). However, pix2pix model produces only a single answer. BicycleGAN instead creates a distribution of answers.
-BicycleGAN blends two models - Conditional Variational Auto Encoders(cVAE-GAN) and Conditional Lane Regressor(cLR-GAN) together.  cVAE-GAN encodes the ground truth output into latent space. This is used by the generator to reconstruct the image and KL loss is added to induce regularity in the latent space.
+Many image-to-image translations are one-to-many in nature (i.e. one input image has multiple possible output images). However, the pix2pix approach produces only a single answer, whereas BicycleGAN produces a distribution of answers. Hence, we additionally explore the BicycleGAN model. 
+BicycleGAN blends two models - Conditional Variational Auto Encoders(cVAE-GAN) and Conditional Lane Regressor(cLR-GAN) - together.  cVAE-GAN encodes the ground truth output into latent space. This is used by the generator to reconstruct the image and Kullback–Leibler loss is added to induce regularity in the latent space.
 cLR-GAN starts with randomly drawn noise vector and produces an output. It then uses encoder to attempt to recover the original latent vector. Hence with Bicycle-GAN, we can prodcue diverse set of realistic images from a single input image. 
 
-Few other options to explore are [SPADE](https://nvlabs.github.io/SPADE/) and an ensemble of these.
+Other options which we did not explore include [SPADE](https://nvlabs.github.io/SPADE/) and an ensemble of these.
 
 # Evaluation
 

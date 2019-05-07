@@ -35,7 +35,7 @@
 * Mark RCNN - https://github.com/akshatabhat/Mask_RCNN
   * Initial Experiment Setup 
   * Wrote Data Loading code to load ICG Dataset(using regionprops to identify object regions in segmentated images)
-* Bicycle GAN
+* Bicycle GAN - https://github.com/akshatabhat/BicycleGAN
   * ICG Data Engineering
   * Modified scripts/code to train on ICG dataset.
   * Training on ICG dataset and Testing on ICG and Unreal dataset

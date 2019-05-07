@@ -30,7 +30,7 @@
 
 * Project Proposal and Evaluation Direction
 * Image to Image translation
-  * Initial experiment setup
+  * Initial Experiment setup
   * ICG Data Engineering/Preperation - correcting segmentation masks and combining source/destination images.
 * Mark RCNN - https://github.com/akshatabhat/Mask_RCNN
   * Initial Experiment Setup 
